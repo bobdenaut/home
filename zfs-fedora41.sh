@@ -13,24 +13,24 @@ echo "Using ID=$ID"
 #Install updated ZFS packages
 rpm -e --nodeps zfs-fuse
 dnf4 config-manager --disable updates
-dnf install -y https://zfsonlinux.org/fedora/zfs-release-2-6$(rpm --eval "%{dist}").noarch.rpm
-dnf install -y https://dl.fedoraproject.org/pub/fedora/linux/releases/${VERSION_ID}/Everything/x86_64/os/Packages/k/kernel-devel-$(uname -r).rpm
-dnf install -y zfs gdisk
+dnf install https://zfsonlinux.org/fedora/zfs-release-2-6$(rpm --eval "%{dist}").noarch.rpm
+dnf install https://dl.fedoraproject.org/pub/fedora/linux/releases/${VERSION_ID}/Everything/x86_64/os/Packages/k/kernel-devel-$(uname -r).rpm
+dnf install zfs gdisk
 modprobe zfs
 
 #Generate /etc/hostid
 zgenhostid -f 0x00bab10c
 
-export BOOT_DISK="/dev/nvme0n1"
+export BOOT_DISK="/dev/disk/by-id/nvme-Micron_2400_MTFDKBA1T0QFM_22423C6886AE"
 export BOOT_PART="1"
-export BOOT_DEVICE="${BOOT_DISK}p${BOOT_PART}"
+export BOOT_DEVICE="${BOOT_DISK}-part${BOOT_PART}"
 
 export POOL_PART2="2"
-export POOL_DEVICE1="${BOOT_DISK}p${POOL_PART2}"
+export POOL_DEVICE1="${BOOT_DISK}-part${POOL_PART2}"
 
-export POOL_DISK="/dev/nvme1n1"
+export POOL_DISK="/dev/disk/by-id/nvme-KINGSTON_SNV2S1000G_50026B76863BCB72"
 export POOL_PART1="1"
-export POOL_DEVICE2="${POOL_DISK}p${POOL_PART1}"
+export POOL_DEVICE2="${POOL_DISK}-part${POOL_PART1}"
 
 zpool labelclear -f $BOOT_DEVICE
 zpool labelclear -f $POOL_DEVICE1
