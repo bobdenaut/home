@@ -1,0 +1,56 @@
+#!/usr/bin/bash
+# vim:set ts=3 sw=3:
+
+UPDATE=0
+NUMARG=0
+FILTER=()
+
+if ! [[ $* =~ --installroot ]]; then
+	for arg do
+		[[ ${arg:0:1} == - ]] && continue
+		case "$arg" in
+			(update|upgrade|up) UPDATE=1 ;;
+			(*) break ;;
+		esac
+	done
+fi
+
+if [[ $UPDATE == 1 ]]; then
+	for arg do
+		[[ ${arg:0:1} == - ]] && continue
+
+		if [[ $arg =~ ^zfs ]]; then
+			cat <<- 'END'
+				use [1mzfs-update[22m to update zfs.
+				or use [1mcommand -p dnf [arg ...][22m to bypass this filter.
+			END
+			exit 1
+		fi
+
+		if [[ $arg =~ ^kernel ]]; then
+			cat <<- 'END'
+				use [1mkernel-update[22m to update the kernel.
+				or use [1mcommand -p dnf [arg ...][22m to bypass this filter.
+			END
+			exit 1
+		fi
+
+		NUMARG=$(($NUMARG+1))
+	done
+
+	FILTER=('--exclude=kernel*')
+	if ! [[ $* =~ --repo ]] && ! [[ $* =~ --repoid ]]; then
+		FILTER+=('--disablerepo=zfs*')
+	fi
+fi
+
+command -p dnf "${FILTER[@]}" "$@"
+if [[ $? -eq 0 ]] && [[ $NUMARG -eq 1 ]] && [[ -t 1 ]]; then
+	cat <<- 'END'
+
+		zfs and kernel updates were excluded
+		run [1mzfs-update[22m to update zfs
+		run [1mkernel-update[22m to update the kernel
+
+	END
+fi
