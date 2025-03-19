@@ -169,7 +169,7 @@ rsync -pogAXtlHrDx \
  
 cp /etc/hostid /mnt/etc
  #------------------------------------------------------------------------------------------------------------------
-
+zgenhostid -f 0x00bab10c
 mkdir -p /mnt/{proc,sys,dev/pts}
 mount -t proc proc /mnt/proc
 mount -t sysfs sys /mnt/sys
@@ -212,7 +212,7 @@ dracut --force --regenerate-all
 #Set ZFSBootMenu properties on datasets
 
 #Assign command-line arguments to be used when booting the final kernel
-zfs set org.="quiet rhgb" zroot/ROOT
+zfs set org.zfsbootmenu:commandline="quiet rhgb" zroot/ROOT
 
 #Setup key caching in ZFSBootMenu.
 zfs set org.zfsbootmenu:keysource="zroot/ROOT/${ID}" zroot
@@ -222,7 +222,7 @@ mkfs.vfat -F32 "$BOOT_DEVICE"
 
 #Create an fstab entry and mount
 cat << EOF >> /etc/fstab
-$( blkid | grep "$BOOT_DEVICE" | cut -d ' ' -f 2 ) /boot/efi vfat defaults 0 0
+$( blkid | grep /dev/nvme0n1p1 | cut -d ' ' -f 2 ) /boot/efi vfat defaults 0 0
 EOF
 
 mkdir -p /boot/efi
