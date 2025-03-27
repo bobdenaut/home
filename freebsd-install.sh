@@ -1,8 +1,9 @@
-############################### README
-# start live environment
-# drop immediately to shell - do not install
-# once you're in the shell, execute this script but first edit the script with your disks
-############################### LAYOUT
+############################### README ###############################################################
+# this script was made and tested with 2 disks in mind, same size in order to create RAID 0 (stripe) #
+# 1) start live environment                                                                          #
+# 2) drop immediately to shell - do not install                                                      #
+# 3) once you're in the shell, execute this script but first edit the script with your disks         #
+############################### LAYOU T###############################################################
 
 #NAME                                       MOUNTPOINT
 #zroot                                      none
