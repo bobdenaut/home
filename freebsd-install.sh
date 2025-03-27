@@ -3,7 +3,7 @@
 # 1) start live environment                                                                          #
 # 2) drop immediately to shell - do not install                                                      #
 # 3) once you're in the shell, execute this script but first edit the script with your disks         #
-############################### LAYOU T###############################################################
+############################### LAYOUT ###############################################################
 
 #NAME                                       MOUNTPOINT
 #zroot                                      none
@@ -24,8 +24,8 @@
 #zroot/ROOT/var/tmp                         /var/tmp
 #zroot/ROOT/var/www                         /var/www
 #------------------------------------------------------------------------
-export DISK1="vtbd0"
-export DISK2="vtbd1"
+export DISK1="vtbd0" # <-- your disk1 here
+export DISK2="vtbd1" # <-- your disk2 here
 gpart create -s gpt ${DISK1}
 gpart create -s gpt ${DISK2}
 #create /dev/gpt/efi0
@@ -35,12 +35,14 @@ gpart add -t freebsd-zfs -a 4k -l zdata0 ${DISK1}
 gpart add -t efi -a 4k -s 512M -l efi1 ${DISK2}
 gpart add -t freebsd-zfs -a 4k -l zdata1 ${DISK2}
 #create /dev/gpt/zdata0.eli and /dev/zdata1.eli
+#disks encryption
 geli init -g -s 4k gpt/zdata0
 geli init -g -s 4k gpt/zdata1
 #attach /dev/gpt/zdata0 and /dev/zdata1
 geli attach gpt/zdata0
 geli attach gpt/zdata1
-#create a mirror of those two efi, called "efi"
+#create a mirror of those two boot efi, called "efi"
+#the following will generate /dev/mirror/efi
 gmirror label efi gpt/efi0 gpt/efi1
 gmirror load
 gmirror status
@@ -50,7 +52,7 @@ zpool create -f -o ashift=12 \
  -O acltype=posixacl \
  -O xattr=sa \
  -O atime=off \
- -O relatime=on \
+ -O relatime=off \
  -O dnodesize=auto \
  -O logbias=throughput \
  -O checksum=fletcher4 \
@@ -85,6 +87,9 @@ zfs set sync=disabled zroot/ROOT/var/log
 zfs set sync=disabled zroot/ROOT/var/tmp
 #
 zfs set recordsize=16k zroot
+zfs set recordsize=1M zroot/ROOT/var/lib/docker
+zfs set recordsize=1M zroot/ROOT/var/lib/libvirt
+zfs set recordsize=1M zroot/ROOT/var/lib/bhyve
 #
 zpool set bootfs=zroot/ROOT/freebsd zroot
 #export
@@ -93,7 +98,7 @@ zpool export zroot
 zpool import -R /mnt zroot
 #mount the root file system
 zfs mount zroot/ROOT/freebsd
-#mount all under the root file system
+#mount all under the root(/tmp) file system
 zfs mount -a
 #
 #install base and kernel
