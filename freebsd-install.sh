@@ -126,9 +126,9 @@ echo 'sendmail_enable="NONE"' >> /etc/rc.conf
 echo 'zfs_enable="YES"' >> /etc/rc.conf
 echo 'zfsd_enable="YES"' >> /etc/rc.conf
 #edit /etc/fstab
-echo '/dev/mirror/efi	/boot/efi           msdosfs   rw              0       0' >> /etc/fstab
-echo 'fdescfs         /dev/fd             fdescfs   rw              0       0' >> /etc/fstab
-echo 'procfs          /proc               procfs    rw              0       0' >> /etc/fstab
+echo '/dev/mirror/efi	/boot/efi msdosfs rw 0 0' >> /etc/fstab
+echo 'fdescfs /dev/fd fdescfs rw 0 0' >> /etc/fstab
+echo 'procfs /proc procfs rw 0 0' >> /etc/fstab
 #exit CHROOT
 exit
 #unmount zfs file system
