@@ -89,7 +89,7 @@ zpool set bootfs=zroot/ROOT/freebsd zroot
 #export
 zpool export zroot
 #import back into temporary root -> /tmp 
-zpool import -N -R /mnt zroot
+zpool import -R /mnt zroot
 #mount the root file system
 zfs mount zroot/ROOT/freebsd
 #mount all under the root file system
