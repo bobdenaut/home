@@ -111,7 +111,7 @@ mount -t msdos /dev/mirror/efi /mnt/boot/efi
 mkdir -p /mnt/boot/efi/EFI/BOOT
 #copy the efi over the new mounted partition
 cp /mnt/boot/loader.efi /mnt/efi/EFI/BOOT/BOOTX64.EFI
-umount /mnt
+umount /mnt/boot/efi
 #!!! CHROOT
 chroot /mnt
 #edit /boot/loader.conf
