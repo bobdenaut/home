@@ -30,9 +30,11 @@ gpart create -s gpt ${DISK1}
 gpart create -s gpt ${DISK2}
 #create /dev/gpt/efi0
 gpart add -t efi -a 4k -s 512M -l efi0 ${DISK1}
+#adds partition and generates /dev/gpt/zdata0
 gpart add -t freebsd-zfs -a 4k -l zdata0 ${DISK1}
 #create /dev/gpt/efi1
 gpart add -t efi -a 4k -s 512M -l efi1 ${DISK2}
+#adds partition and generates /dev/gpt/zdata1
 gpart add -t freebsd-zfs -a 4k -l zdata1 ${DISK2}
 #create /dev/gpt/zdata0.eli and /dev/zdata1.eli
 #disks encryption
@@ -42,7 +44,7 @@ geli init -g -s 4k gpt/zdata1
 geli attach gpt/zdata0
 geli attach gpt/zdata1
 #create a mirror of those two boot efi, called "efi"
-#the following will generate /dev/mirror/efi
+#the following will generate /dev/mirror/efi - the boot
 gmirror label efi gpt/efi0 gpt/efi1
 gmirror load
 gmirror status
