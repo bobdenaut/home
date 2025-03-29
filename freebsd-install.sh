@@ -47,22 +47,7 @@ geli attach gpt/zdata1
 #the following will generate /dev/mirror/efi - the boot
 gmirror label efi gpt/efi0 gpt/efi1
 gmirror load
-gmirror status
-#
-# The following is taken from FreeBSD repo code and is showing how 
-#                       datasets are created by the installer:
-#   https://svnweb.freebsd.org/base/release/11.2.0/usr.sbin/bsdinstall/scripts/zfsboot?revision=335563&view=markup
-#/tmp            mountpoint=/tmp,exec=on,setuid=off
-# Don't mount /usr so that 'base' files go to the BEROOT
-#/usr            mountpoint=/usr,canmount=off
-#/usr/home
-#/usr/src
-#/var            mountpoint=/var,canmount=off
-#/var/audit      exec=off,setuid=off
-#/var/crash      exec=off,setuid=off
-#/var/log        exec=off,setuid=off
-#/var/mail       atime=on
-#/var/tmp        setuid=off
+gmirror status     
 
 #zroot creation
 zpool create -f -o ashift=12 \
@@ -81,18 +66,20 @@ zfs create -o mountpoint=/ zroot/ROOT/freebsd
 zfs create -o mountpoint=/home zroot/ROOT/home
 zfs create -o mountpoint=/usr -o canmount=off zroot/ROOT/usr
 zfs create -o mountpoint=/var -o canmount=off zroot/ROOT/var
+zfs create -o mountpoint=/var/audit -o exec=off -o setuid=off zroot/ROOT/var/audit
 zfs create -o mountpoint=/var/lib/bhyve zroot/ROOT/var/lib/bhyve
 zfs create -o mountpoint=/var/db zroot/ROOT/var/db
-zfs create -o mountpoint=/var/log zroot/ROOT/var/log
-zfs create -o mountpoint=/var/tmp zroot/ROOT/var/tmp
+zfs create -o mountpoint=/var/log -o exec=off -o setuid=off zroot/ROOT/var/log
+zfs create -o mountpoint=/var/tmp -o setuid=off zroot/ROOT/var/tmp
 zfs create -o mountpoint=/var/www zroot/ROOT/var/www
 zfs create -o mountpoint=/var/cache zroot/ROOT/var/cache
-zfs create -o mountpoint=/var/crash zroot/ROOT/var/crash
+zfs create -o mountpoint=/var/crash -o exec=off -o setuid=off zroot/ROOT/var/crash
 zfs create -o mountpoint=/var/lib zroot/ROOT/var/lib
 zfs create -o mountpoint=/var/lib/docker zroot/ROOT/var/lib/docker
 zfs create -o mountpoint=/var/lib/libvirt zroot/ROOT/var/lib/libvirt
 zfs create -o mountpoint=/tmp zroot/ROOT/tmp
 #
+zfs set com.sun:auto-snapshot=false zroot/ROOT/var/audit
 zfs set com.sun:auto-snapshot=false zroot/ROOT/var/cache
 zfs set com.sun:auto-snapshot=false zroot/ROOT/var/crash
 zfs set com.sun:auto-snapshot=false zroot/ROOT/var/log
