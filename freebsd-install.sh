@@ -67,16 +67,17 @@ zfs create -o mountpoint=/home zroot/ROOT/home
 zfs create -o mountpoint=/usr -o canmount=off zroot/ROOT/usr
 zfs create -o mountpoint=/var -o canmount=off zroot/ROOT/var
 zfs create -o mountpoint=/var/audit -o exec=off -o setuid=off zroot/ROOT/var/audit
-zfs create -o mountpoint=/var/lib/bhyve zroot/ROOT/var/lib/bhyve
 zfs create -o mountpoint=/var/db zroot/ROOT/var/db
+zfs create -o mountpoint=/var/lib -o canmount=off zroot/ROOT/var/lib
+zfs create -o mountpoint=/var/lib/bhyve zroot/ROOT/var/lib/bhyve
+zfs create -o mountpoint=/var/lib/docker zroot/ROOT/var/lib/docker
+zfs create -o mountpoint=/var/lib/libvirt zroot/ROOT/var/lib/libvirt
 zfs create -o mountpoint=/var/log -o exec=off -o setuid=off zroot/ROOT/var/log
 zfs create -o mountpoint=/var/tmp -o setuid=off zroot/ROOT/var/tmp
 zfs create -o mountpoint=/var/www zroot/ROOT/var/www
 zfs create -o mountpoint=/var/cache zroot/ROOT/var/cache
 zfs create -o mountpoint=/var/crash -o exec=off -o setuid=off zroot/ROOT/var/crash
-zfs create -o mountpoint=/var/lib zroot/ROOT/var/lib
-zfs create -o mountpoint=/var/lib/docker zroot/ROOT/var/lib/docker
-zfs create -o mountpoint=/var/lib/libvirt zroot/ROOT/var/lib/libvirt
+
 zfs create -o mountpoint=/tmp zroot/ROOT/tmp
 #
 zfs set com.sun:auto-snapshot=false zroot/ROOT/var/audit
