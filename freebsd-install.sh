@@ -64,39 +64,39 @@ zpool create -f -o ashift=12 \
 # Create initial file systems
 zfs create -o mountpoint=none zroot/ROOT
 zfs create -o mountpoint=/ zroot/ROOT/freebsd
-zfs create -o mountpoint=/home zroot/ROOT/home
-zfs create -o mountpoint=/usr -o canmount=off zroot/ROOT/usr
-zfs create -o mountpoint=/var -o canmount=off zroot/ROOT/var
-zfs create -o mountpoint=/var/audit -o exec=off -o setuid=off zroot/ROOT/var/audit
-zfs create -o mountpoint=/var/db zroot/ROOT/var/db
-zfs create -o mountpoint=/var/lib -o canmount=off zroot/ROOT/var/lib
-zfs create -o mountpoint=/var/lib/bhyve zroot/ROOT/var/lib/bhyve
-zfs create -o mountpoint=/var/lib/docker zroot/ROOT/var/lib/docker
-zfs create -o mountpoint=/var/lib/libvirt zroot/ROOT/var/lib/libvirt
-zfs create -o mountpoint=/var/log -o exec=off -o setuid=off zroot/ROOT/var/log
-zfs create -o mountpoint=/var/tmp -o setuid=off zroot/ROOT/var/tmp
-zfs create -o mountpoint=/var/www zroot/ROOT/var/www
-zfs create -o mountpoint=/var/cache zroot/ROOT/var/cache
-zfs create -o mountpoint=/var/crash -o exec=off -o setuid=off zroot/ROOT/var/crash
+zfs create -o mountpoint=/home zroot/home
+zfs create -o mountpoint=/usr -o canmount=off zroot/usr
+zfs create -o mountpoint=/var -o canmount=off zroot/var
+zfs create -o mountpoint=/var/audit -o exec=off -o setuid=off zroot/var/audit
+zfs create -o mountpoint=/var/db zroot/var/db
+zfs create -o mountpoint=/var/lib -o canmount=off zroot/var/lib
+zfs create -o mountpoint=/var/lib/bhyve zroot/var/lib/bhyve
+zfs create -o mountpoint=/var/lib/docker zroot/var/lib/docker
+zfs create -o mountpoint=/var/lib/libvirt zroot/var/lib/libvirt
+zfs create -o mountpoint=/var/log -o exec=off -o setuid=off zroot/var/log
+zfs create -o mountpoint=/var/tmp -o setuid=off zroot/var/tmp
+zfs create -o mountpoint=/var/www zroot/var/www
+zfs create -o mountpoint=/var/cache zroot/var/cache
+zfs create -o mountpoint=/var/crash -o exec=off -o setuid=off zroot/var/crash
 
 zfs create -o mountpoint=/tmp zroot/ROOT/tmp
 #
-zfs set com.sun:auto-snapshot=false zroot/ROOT/var/audit
-zfs set com.sun:auto-snapshot=false zroot/ROOT/var/cache
-zfs set com.sun:auto-snapshot=false zroot/ROOT/var/crash
-zfs set com.sun:auto-snapshot=false zroot/ROOT/var/log
-zfs set com.sun:auto-snapshot=false zroot/ROOT/var/tmp
+zfs set com.sun:auto-snapshot=false zroot/var/audit
+zfs set com.sun:auto-snapshot=false zroot/var/cache
+zfs set com.sun:auto-snapshot=false zroot/var/crash
+zfs set com.sun:auto-snapshot=false zroot/var/log
+zfs set com.sun:auto-snapshot=false zroot/var/tmp
 #
 zfs set sync=standard zroot
-zfs set sync=disabled zroot/ROOT/var/cache
-zfs set sync=disabled zroot/ROOT/var/crash
-zfs set sync=disabled zroot/ROOT/var/log
-zfs set sync=disabled zroot/ROOT/var/tmp
+zfs set sync=disabled zroot/var/cache
+zfs set sync=disabled zroot/var/crash
+zfs set sync=disabled zroot/var/log
+zfs set sync=disabled zroot/var/tmp
 #
 zfs set recordsize=16k zroot
-zfs set recordsize=1M zroot/ROOT/var/lib/docker
-zfs set recordsize=1M zroot/ROOT/var/lib/libvirt
-zfs set recordsize=1M zroot/ROOT/var/lib/bhyve
+zfs set recordsize=1M zroot/var/lib/docker
+zfs set recordsize=1M zroot/var/lib/libvirt
+zfs set recordsize=1M zroot/var/lib/bhyve
 #
 zpool set bootfs=zroot/ROOT/freebsd zroot
 #export
