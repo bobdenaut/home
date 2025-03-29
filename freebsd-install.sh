@@ -49,39 +49,20 @@ gmirror label efi gpt/efi0 gpt/efi1
 gmirror load
 gmirror status
 #
-# The following is taken from FreeBSD repo code is showing how 
+# The following is taken from FreeBSD repo code and is showing how 
 #                       datasets are created by the installer:
 #   https://svnweb.freebsd.org/base/release/11.2.0/usr.sbin/bsdinstall/scripts/zfsboot?revision=335563&view=markup
-#   Credit goes to FreeBSD ofcourse!
-#
-# Default ZFS datasets for root zpool
-# Boot Environment [BE] root and default boot dataset
-#/$ZFSBOOT_BEROOT_NAME                           mountpoint=none
-#/$ZFSBOOT_BEROOT_NAME/$ZFSBOOT_BOOTFS_NAME      mountpoint=/
-#
-# Compress /tmp, allow exec but not setuid
 #/tmp            mountpoint=/tmp,exec=on,setuid=off
-#
 # Don't mount /usr so that 'base' files go to the BEROOT
 #/usr            mountpoint=/usr,canmount=off
-# 	
-# Home directories separated so they are common to all BEs
-#/usr/home       # NB: /home is a symlink to /usr/home
-# 	
-# Ports tree
-#/usr/ports      setuid=off
-# 	
-# Source tree (compressed)
+#/usr/home
 #/usr/src
-# 	
-# Create /var and friends
 #/var            mountpoint=/var,canmount=off
 #/var/audit      exec=off,setuid=off
 #/var/crash      exec=off,setuid=off
 #/var/log        exec=off,setuid=off
 #/var/mail       atime=on
 #/var/tmp        setuid=off
-
 
 #zroot creation
 zpool create -f -o ashift=12 \
@@ -98,8 +79,8 @@ zpool create -f -o ashift=12 \
 zfs create -o mountpoint=none zroot/ROOT
 zfs create -o mountpoint=/ zroot/ROOT/freebsd
 zfs create -o mountpoint=/home zroot/ROOT/home
-zfs create -o mountpoint=/usr zroot/ROOT/usr
-zfs create -o mountpoint=/var zroot/ROOT/var
+zfs create -o mountpoint=/usr -o canmount=off zroot/ROOT/usr
+zfs create -o mountpoint=/var -o canmount=off zroot/ROOT/var
 zfs create -o mountpoint=/var/lib/bhyve zroot/ROOT/var/lib/bhyve
 zfs create -o mountpoint=/var/db zroot/ROOT/var/db
 zfs create -o mountpoint=/var/log zroot/ROOT/var/log
