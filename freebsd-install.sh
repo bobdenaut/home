@@ -78,8 +78,7 @@ zfs create -o mountpoint=/var/tmp -o setuid=off zroot/var/tmp
 zfs create -o mountpoint=/var/www zroot/var/www
 zfs create -o mountpoint=/var/cache zroot/var/cache
 zfs create -o mountpoint=/var/crash -o exec=off -o setuid=off zroot/var/crash
-
-zfs create -o mountpoint=/tmp zroot/ROOT/tmp
+zfs create -o mountpoint=/tmp zroot/tmp
 #
 zfs set com.sun:auto-snapshot=false zroot/var/audit
 zfs set com.sun:auto-snapshot=false zroot/var/cache
