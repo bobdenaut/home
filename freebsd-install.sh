@@ -49,9 +49,10 @@ gmirror label efi gpt/efi0 gpt/efi1
 gmirror load
 gmirror status
 #
-# The following taked from FreeBSD repo code is showing how datasets are created by the installer:
-# https://svnweb.freebsd.org/base/release/11.2.0/usr.sbin/bsdinstall/scripts/zfsboot?revision=335563&view=markup
-# Credit goes to FreeBSD ofcourse!
+# The following is taken from FreeBSD repo code is showing how 
+#                       datasets are created by the installer:
+#   https://svnweb.freebsd.org/base/release/11.2.0/usr.sbin/bsdinstall/scripts/zfsboot?revision=335563&view=markup
+#   Credit goes to FreeBSD ofcourse!
 #
 # Default ZFS datasets for root zpool
 # Boot Environment [BE] root and default boot dataset
