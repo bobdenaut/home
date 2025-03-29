@@ -13,6 +13,7 @@
 #zroot/ROOT/tmp                             /tmp
 #zroot/ROOT/usr                             /usr
 #zroot/ROOT/var                             /var
+#zroot/ROOT/var/audit                       /var/audit
 #zroot/ROOT/var/cache                       /var/cache
 #zroot/ROOT/var/crash                       /var/crash
 #zroot/ROOT/var/db                          /var/db
