@@ -5,25 +5,25 @@
 # 3) once you're in the shell, execute this script but first edit the script with your disks         #
 ############################### LAYOUT ###############################################################
 
-#NAME                                       MOUNTPOINT
-#zroot                                      none
-#zroot/ROOT                                 none
-#zroot/ROOT/freebsd                         /
-#zroot/ROOT/home                            /home
-#zroot/ROOT/tmp                             /tmp
-#zroot/ROOT/usr                             /usr
-#zroot/ROOT/var                             /var
-#zroot/ROOT/var/audit                       /var/audit
-#zroot/ROOT/var/cache                       /var/cache
-#zroot/ROOT/var/crash                       /var/crash
-#zroot/ROOT/var/db                          /var/db
-#zroot/ROOT/var/lib                         /var/lib
-#zroot/ROOT/var/lib/bhyve                   /var/lib/bhyve
-#zroot/ROOT/var/lib/docker                  /var/lib/docker
-#zroot/ROOT/var/lib/libvirt                 /var/lib/libvirt
-#zroot/ROOT/var/log                         /var/log
-#zroot/ROOT/var/tmp                         /var/tmp
-#zroot/ROOT/var/www                         /var/www
+#NAME                                  MOUNTPOINT
+#zroot                                 none
+#zroot/ROOT                            none
+#zroot/ROOT/freebsd                    /
+#zroot/home                            /home
+#zroot/tmp                             /tmp
+#zroot/usr                             /usr
+#zroot/var                             /var
+#zroot/var/audit                       /var/audit
+#zroot/var/cache                       /var/cache
+#zroot/var/crash                       /var/crash
+#zroot/var/db                          /var/db
+#zroot/var/lib                         /var/lib
+#zroot/var/lib/bhyve                   /var/lib/bhyve
+#zroot/var/lib/docker                  /var/lib/docker
+#zroot/var/lib/libvirt                 /var/lib/libvirt
+#zroot/var/log                         /var/log
+#zroot/var/tmp                         /var/tmp
+#zroot/var/www                         /var/www
 #------------------------------------------------------------------------
 export DISK1="vtbd0" # <-- your disk1 here
 export DISK2="vtbd1" # <-- your disk2 here
