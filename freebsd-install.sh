@@ -24,6 +24,9 @@
 #zroot/var/log                         /var/log
 #zroot/var/tmp                         /var/tmp
 #zroot/var/www                         /var/www
+#-
+#GET https://git.io/JEw00 | sudo bash
+#https://github.com/64kramsystem/zfs-installer
 #------------------------------------------------------------------------
 export DISK1="vtbd0" # <-- your disk1 here
 export DISK2="vtbd1" # <-- your disk2 here
