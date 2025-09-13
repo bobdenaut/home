@@ -1,3 +1,5 @@
+#More samples:
+# https://discourse.practicalzfs.com/t/installing-ubuntu-with-zfsbootmenu-and-secure-boot-enabled/1568
 #/dev/nvme1n1     259:0    0 931.5G  0 disk 
 #├─/dev/nvme1n1p1 259:1    0   931G  0 part - root
 #└─/dev/nvme1n1p2 259:2    0 523.7M  0 part - cache
