@@ -75,17 +75,16 @@ export PATH="$PATH:/home/liviu/.local/bin/"
 __fzf_history__() {
   local selected
 
-  # Selectează comanda din istoric cu fzf
-  selected=$(history | awk '{$1=""; print substr($0,2)}' | fzf --tac +s +m) || return
+  selected=$(history | awk '{$1=""; print substr($0,2)}' | \
+    fzf --tac --exact --no-sort --preview 'echo {}' --preview-window=up:1:wrap) || return
 
-  # Pune comanda selectată în prompt
   READLINE_LINE=$selected
   READLINE_POINT=${#READLINE_LINE}
 
-  # Execută imediat comanda și revine la comportamentul normal
   bind '"\C-j": accept-line'
   printf "\n"
-  bind -r '\C-j'   # elimină legătura temporară cu Ctrl+J
+  bind -r '\C-j'
 }
 bind -x '"\C-r": "__fzf_history__"'
+
 
