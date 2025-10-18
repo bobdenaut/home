@@ -26,7 +26,7 @@ source "$HOME/.cargo/env"
 
 10. Now compile asusctl and install - compiling takes time
 make
-sudo make install
+sudo CARGO_HOME=/myapplications/cargo RUSTUP_HOME=/myapplications/rustup PATH=/myapplications/cargo/bin:$PATH make install
 
 11. Start asusctl daemons or simply reboot
 systemctl daemon-reload && systemctl restart asusd
