@@ -1,0 +1,35 @@
+STEPS TO INSTALL ASUSCTL ON LINUX MINT 22
+1. Download source code zip file from https://gitlab.com/asus-linux/asusctl/-/releases/6.0.12
+2. Extract the zip file into the respective folder
+3. Go to the unzipped folder
+
+
+cd asusctl-6.0.12
+4. Update repositories
+sudo apt update
+
+5. Upgrade packages if any
+sudo apt upgrade
+
+6. Install dependencies - can be installed via software manager and/or synaptic package manager
+sudo apt install gcc pkg-config openssl libasound2-dev cmake build-essential python3 libfreetype6-dev libexpat1-dev libxcb-composite0-dev libssl-dev libx11-dev libfontconfig1-dev curl libclang-dev libudev-dev checkinstall libseat-dev libinput-dev libxkbcommon-dev libgbm-dev
+
+7. Install npm - package manager for Node.js - can be installed via software manager or synaptic package manager
+sudo apt install npm
+
+8. Install the npm-run-all CLI tool, which allows you to run multiple npm scripts in sequential order while adding the third-party packages to the package's development dependencies
+npm i npm-run-all --save-dev
+
+9. Now install rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source "$HOME/.cargo/env"
+
+10. Now compile asusctl and install - compiling takes time
+make
+sudo make install
+
+11. Start asusctl daemons or simply reboot
+systemctl daemon-reload && systemctl restart asusd
+
+12. Verify asusd service
+systemctl status asusd.service
